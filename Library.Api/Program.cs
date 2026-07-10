@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Database
 builder.Services.AddDbContext<LibraryDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("LibraryDb")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 
 // Swagger / OpenAPI
