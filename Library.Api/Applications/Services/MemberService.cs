@@ -23,9 +23,18 @@ public class MemberService
         return await _memberRepository.GetAllAsync();
     }
 
-    public async Task<Member?> GetByIdAsync(int id)
+    public async Task<Member> GetByIdAsync(int id)
     {
-        return await _memberRepository.GetByIdAsync(id);
+        var member =
+            await _memberRepository.GetByIdAsync(id);
+
+        if (member is null)
+        {
+            throw new NotFoundException(
+                "Member not found");
+        }
+
+        return member;
     }
 
     public async Task<Member> CreateAsync(Member member)

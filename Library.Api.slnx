@@ -3,5 +3,6 @@
     <File Path="docker-compose.yml" />
     <File Path="ReadMe.md" />
   </Folder>
+  <Project Path="Library.Api.Tests/Library.Api.Tests.csproj" Id="ce2841c0-70bb-4ca8-9c94-631f12523509" />
   <Project Path="Library.Api/Library.Api.csproj" />
 </Solution>

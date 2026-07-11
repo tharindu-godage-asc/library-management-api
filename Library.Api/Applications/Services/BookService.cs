@@ -23,9 +23,17 @@ public class BookService
         return await _bookRepository.GetAllAsync();
     }
 
-    public async Task<Book?> GetByIdAsync(int id)
+    public async Task<Book> GetByIdAsync(int id)
     {
-        return await _bookRepository.GetByIdAsync(id);
+        var book = await _bookRepository.GetByIdAsync(id);
+
+        if (book is null)
+        {
+            throw new NotFoundException(
+                "Book not found.");
+        }
+
+        return book;
     }
 
     public async Task<Book> CreateAsync(Book book)

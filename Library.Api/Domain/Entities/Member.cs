@@ -16,6 +16,9 @@
             FullName = fullName;
             Email = email;
             PhoneNumber = phoneNumber;
+
+            RegisteredDate = DateTime.UtcNow;
+            IsActive = true;
         }
 
         public void Activate()

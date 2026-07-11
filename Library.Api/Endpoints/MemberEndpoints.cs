@@ -1,4 +1,5 @@
 ﻿using Library.Api.Applications.Services;
+using Library.Api.Common.Filters;
 using Library.Api.Contracts.Mappings;
 using Library.Api.Contracts.Members;
 using Library.Api.Domain.Entities;
@@ -52,7 +53,8 @@ public static class MemberEndpoints
                 return Results.Created(
                     $"/api/members/{member.Id}",
                     member.ToResponse());
-            });
+            })
+            .AddEndpointFilter<ValidationFilter<CreateMemberRequest>>();
 
         // Update Member
         group.MapPut("/{id:int}",
@@ -66,7 +68,8 @@ public static class MemberEndpoints
                     request);
 
                 return Results.NoContent();
-            });
+            })
+            .AddEndpointFilter<ValidationFilter<UpdateMemberRequest>>();
 
         // Delete Member
         group.MapDelete("/{id:int}",

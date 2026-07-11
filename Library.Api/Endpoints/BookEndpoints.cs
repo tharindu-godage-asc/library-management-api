@@ -1,4 +1,5 @@
 ﻿using Library.Api.Applications.Services;
+using Library.Api.Common.Filters;
 using Library.Api.Contracts.Books;
 using Library.Api.Contracts.Mappings;
 using Library.Api.Domain.Entities;
@@ -50,7 +51,8 @@ public static class BookEndpoints
                 return Results.Created(
                     $"/api/books/{book.Id}",
                     book.ToResponse());
-            });
+            })
+            .AddEndpointFilter<ValidationFilter<CreateBookRequest>>();
 
         //Update Book
         group.MapPut("/{id:int}",
@@ -59,12 +61,11 @@ public static class BookEndpoints
                 UpdateBookRequest request,
                 BookService service) =>
             {
-                await service.UpdateAsync(
-                    id,
-                    request);
+                await service.UpdateAsync(id, request);
 
                 return Results.NoContent();
-            });
+            })
+            .AddEndpointFilter<ValidationFilter<UpdateBookRequest>>();
 
         // Delete Book
         group.MapDelete("/{id:int}",

@@ -31,9 +31,6 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<BookService>();
 builder.Services.AddScoped<MemberService>();
 builder.Services.AddScoped<BorrowingService>();
-// builder.Services.AddScoped<IBookService, BookService>();
-// builder.Services.AddScoped<IMemberService, MemberService>();
-// builder.Services.AddScoped<IBorrowingService, BorrowingService>();
 
 
 //Validators

@@ -1,4 +1,5 @@
 ﻿using Library.Api.Applications.Services;
+using Library.Api.Common.Filters;
 using Library.Api.Contracts.Borrowings;
 using Library.Api.Contracts.Mappings;
 
@@ -26,7 +27,8 @@ public static class BorrowingEndpoints
                 return Results.Created(
                     $"/api/borrowings/{borrowing.Id}",
                     borrowing.ToResponse());
-            });
+            })
+            .AddEndpointFilter<ValidationFilter<CreateBorrowingRequest>>();
 
         // Get All Borrowings
         group.MapGet("/",
@@ -65,6 +67,7 @@ public static class BorrowingEndpoints
                 return Results.Ok(
                     borrowings.Select(
                         x => x.ToResponse()));
-            });
+            })
+            .WithTags("Borrowings");
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Library.Api.Application.Interfaces;
+using Library.Api.Common.Exceptions;
 using Library.Api.Domain.Entities;
+using Library.Api.Infrastructure.Repositories;
 
 namespace Library.Api.Applications.Services;
 
@@ -93,10 +95,29 @@ public class BorrowingService
         return await _borrowingRepository.GetAllAsync();
     }
 
+
     public async Task<IEnumerable<Borrowing>> GetMemberHistoryAsync(
         int memberId)
     {
-        return await _borrowingRepository
-            .GetByMemberIdAsync(memberId);
+        var member =
+            await _memberRepository.GetByIdAsync(memberId);
+
+        if (member is null)
+        {
+            throw new NotFoundException(
+                "Member not found.");
+        }
+
+        var borrowings =
+            await _borrowingRepository
+                .GetByMemberIdAsync(memberId);
+
+        if (!borrowings.Any())
+        {
+            throw new NotFoundException(
+                "No borrowing records found.");
+        }
+
+        return borrowings;
     }
 }

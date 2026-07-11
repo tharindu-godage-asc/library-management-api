@@ -13,12 +13,12 @@ A backend API for a small library to manage books, members, and the borrowing/re
   - [3. Run the API](#3-run-the-api)
   - [4. Access Swagger](#4-access-swagger)
 - [Seed Data](#seed-data)
+- [Available Endpoints](#available-endpoints)
 - [Example API Requests](#example-api-requests)
 - [Business Rules Reference](#business-rules-reference)
 - [Error Response Format](#error-response-format)
 - [Running Tests](#running-tests)
 - [Assumptions](#assumptions)
-- [Bonus Items Implemented](#bonus-items-implemented)
 
 ## Overview
 
@@ -151,6 +151,37 @@ dotnet ef database drop
 dotnet ef database update
 ```
 
+## Available Endpoints
+
+### Books
+
+| Method | Endpoint |
+|----------|----------|
+| POST | /api/books |
+| GET | /api/books |
+| GET | /api/books/{id} |
+| PUT | /api/books/{id} |
+| DELETE | /api/books/{id} |
+
+### Members
+
+| Method | Endpoint |
+|----------|----------|
+| POST | /api/members |
+| GET | /api/members |
+| GET | /api/members/{id} |
+| PUT | /api/members/{id} |
+| DELETE | /api/members/{id} |
+
+### Borrowings
+
+| Method | Endpoint |
+|----------|----------|
+| POST | /api/borrowings |
+| GET | /api/borrowings |
+| GET | /api/members/{memberId}/borrowings |
+| POST | /api/borrowings/{id}/return |
+
 ## Example API Requests
 
 <img width="1589" height="635" alt="image" src="https://github.com/user-attachments/assets/d21aff20-7c44-454b-8bb7-4473780f396e" />
@@ -266,3 +297,15 @@ Validation errors include a per-field breakdown:
 | Business rule violation | 400 / 409 |
 
 
+## Assumptions
+
+The following assumptions were made:
+
+- A member may borrow a maximum of 3 active books.
+- Borrowing due dates are calculated as 14 days from the borrowed date.
+- ISBN values must be unique across all books.
+- Member email addresses must be unique.
+- Returning a book more than once is not allowed.
+- A member must be active to borrow books.
+- A borrowing record remains in the database after a book is returned.
+- Empty borrowing history for an existing member returns an empty collection rather than a 404 response.
