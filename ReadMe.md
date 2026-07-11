@@ -1,4 +1,4 @@
-﻿# Library Management System — .NET Minimal Web API
+# Library Management System — .NET Minimal Web API
 
 A backend API for a small library to manage books, members, and the borrowing/returning workflow. Built as a Minimal API on .NET 9, with EF Core + PostgreSQL, the repository pattern, and a clean separation between API contracts, domain logic, and infrastructure.
 

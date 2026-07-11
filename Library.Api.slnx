@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/Solution Items/">
     <File Path="docker-compose.yml" />
+    <File Path="ReadMe.md" />
   </Folder>
   <Project Path="Library.Api/Library.Api.csproj" />
 </Solution>
