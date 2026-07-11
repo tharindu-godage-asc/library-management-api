@@ -16,7 +16,7 @@
         {
             if (publishedYear > DateTime.UtcNow.Year)
                 throw new ArgumentException("Published year cannot be in the future.");
-            if (TotalCopies <= 0)
+            if (totalCopies <= 0)
                 throw new ArgumentException("Total Copies must be greater than 0");
 
             Title = title;

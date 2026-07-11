@@ -1,0 +1,68 @@
+﻿using Library.Api.Applications.Services;
+using Library.Api.Contracts.Mappings;
+using Library.Api.Contracts.Members;
+using Library.Api.Domain.Entities;
+
+namespace Library.Api.Endpoints;
+
+public static class MemberEndpoints
+{
+    public static void MapMemberEndpoints(this WebApplication app)
+    {
+        var group = app.MapGroup("/api/members")
+            .WithTags("Members");
+
+        // Get All Members
+        group.MapGet("/",
+            async (MemberService service) =>
+            {
+                var members =
+                    await service.GetAllAsync();
+
+                return Results.Ok(
+                    members.Select(x => x.ToResponse()));
+            });
+
+        // Get Member By Id
+        group.MapGet("/{id:int}",
+            async (
+                int id,
+                MemberService service) =>
+            {
+                var member =
+                    await service.GetByIdAsync(id);
+
+                return Results.Ok(
+                    member?.ToResponse());
+            });
+
+        // Create Member
+        group.MapPost("/",
+            async (
+                CreateMemberRequest request,
+                MemberService service) =>
+            {
+                var member = new Member(
+                    request.FullName,
+                    request.Email,
+                    request.PhoneNumber);
+
+                await service.CreateAsync(member);
+
+                return Results.Created(
+                    $"/api/members/{member.Id}",
+                    member.ToResponse());
+            });
+
+        // Delete Member
+        group.MapDelete("/{id:int}",
+            async (
+                int id,
+                MemberService service) =>
+            {
+                await service.DeleteAsync(id);
+
+                return Results.NoContent();
+            });
+    }
+}

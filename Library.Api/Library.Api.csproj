@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Common\Exceptions\ValidationException.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.9">
       <PrivateAssets>all</PrivateAssets>
@@ -21,13 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Applications\Interfaces\" />
-    <Folder Include="Applications\Services\" />
-    <Folder Include="Contracts\Books\" />
-    <Folder Include="Contracts\Members\" />
-    <Folder Include="Contracts\Borrowings\" />
-    <Folder Include="Endpoints\" />
-    <Folder Include="Infrastructure\Repositories\" />
+    <None Include="Common\Exceptions\ValidationException.cs" />
   </ItemGroup>
 
 </Project>
