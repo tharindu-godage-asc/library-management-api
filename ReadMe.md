@@ -297,6 +297,32 @@ Validation errors include a per-field breakdown:
 | Duplicate ISBN or email | 409 |
 | Business rule violation | 400 / 409 |
 
+## Running Tests
+
+The solution includes an xUnit test project that validates the core domain logic and business rules.
+
+Run all tests from the solution root:
+
+```bash
+dotnet test
+```
+
+Or run only the test project:
+
+```bash
+dotnet test Library.Api.Tests
+```
+
+### Test Coverage
+
+The current test suite includes the following scenarios:
+
+#### Tests
+- A book cannot be borrowed when no copies are available.
+- An inactive member cannot borrow a book.
+- A member cannot borrow more than 3 active books.
+- Returning a book increases available copies.
+- A book cannot be returned twice.
 
 ## Assumptions
 
