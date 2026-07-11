@@ -1,4 +1,6 @@
 ﻿using Library.Api.Application.Interfaces;
+using Library.Api.Common.Exceptions;
+using Library.Api.Contracts.Books;
 using Library.Api.Domain.Entities;
 
 namespace Library.Api.Applications.Services;
@@ -54,6 +56,42 @@ public class BookService
         }
 
         _bookRepository.Delete(book);
+
+        await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(
+    int id,
+    UpdateBookRequest request)
+    {
+        var book =
+            await _bookRepository.GetByIdAsync(id);
+
+        if (book is null)
+        {
+            throw new NotFoundException(
+                "Book not found.");
+        }
+
+        var existingBook =
+            await _bookRepository.GetByIsbnAsync(
+                request.Isbn);
+
+        if (existingBook is not null &&
+            existingBook.Id != id)
+        {
+            throw new ConflictException(
+                "ISBN already exists.");
+        }
+
+        book.Update(
+            request.Title,
+            request.Author,
+            request.Isbn,
+            request.PublishedYear,
+            request.TotalCopies);
+
+        _bookRepository.Update(book);
 
         await _unitOfWork.SaveChangesAsync();
     }

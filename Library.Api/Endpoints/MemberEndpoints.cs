@@ -54,6 +54,20 @@ public static class MemberEndpoints
                     member.ToResponse());
             });
 
+        // Update Member
+        group.MapPut("/{id:int}",
+            async (
+                int id,
+                UpdateMemberRequest request,
+                MemberService service) =>
+            {
+                await service.UpdateAsync(
+                    id,
+                    request);
+
+                return Results.NoContent();
+            });
+
         // Delete Member
         group.MapDelete("/{id:int}",
             async (

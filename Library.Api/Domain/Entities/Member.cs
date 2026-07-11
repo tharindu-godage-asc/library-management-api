@@ -27,5 +27,17 @@
         {
             IsActive = false;
         }
+
+        public void Update(
+            string fullName,
+            string email,
+            string phoneNumber,
+            bool isActive)
+                {
+                    FullName = fullName;
+                    Email = email;
+                    PhoneNumber = phoneNumber;
+                    IsActive = isActive;
+                }
     }
 }

@@ -52,6 +52,20 @@ public static class BookEndpoints
                     book.ToResponse());
             });
 
+        //Update Book
+        group.MapPut("/{id:int}",
+            async (
+                int id,
+                UpdateBookRequest request,
+                BookService service) =>
+            {
+                await service.UpdateAsync(
+                    id,
+                    request);
+
+                return Results.NoContent();
+            });
+
         // Delete Book
         group.MapDelete("/{id:int}",
             async (

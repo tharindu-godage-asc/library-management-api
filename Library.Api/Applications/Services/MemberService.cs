@@ -1,4 +1,6 @@
 ﻿using Library.Api.Application.Interfaces;
+using Library.Api.Common.Exceptions;
+using Library.Api.Contracts.Members;
 using Library.Api.Domain.Entities;
 
 namespace Library.Api.Applications.Services;
@@ -55,6 +57,40 @@ public class MemberService
         }
 
         _memberRepository.Delete(member);
+
+        await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task UpdateAsync(int id,
+    UpdateMemberRequest request)
+    {
+        var member =
+            await _memberRepository.GetByIdAsync(id);
+
+        if (member is null)
+        {
+            throw new NotFoundException(
+                "Member not found.");
+        }
+
+        var existingMember =
+            await _memberRepository.GetByEmailAsync(
+                request.Email);
+
+        if (existingMember is not null &&
+            existingMember.Id != id)
+        {
+            throw new ConflictException(
+                "Email already exists.");
+        }
+
+        member.Update(
+            request.FullName,
+            request.Email,
+            request.PhoneNumber,
+            request.IsActive);
+
+        _memberRepository.Update(member);
 
         await _unitOfWork.SaveChangesAsync();
     }

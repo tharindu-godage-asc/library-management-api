@@ -40,5 +40,36 @@
                 throw new InvalidOperationException("All copies already accounted for.");
             AvailableCopies++;
         }
+
+        public void Update(
+            string title,
+            string author,
+            string isbn,
+            int publishedYear,
+            int totalCopies)
+        {
+            if (publishedYear > DateTime.UtcNow.Year)
+            {
+                throw new ArgumentException(
+                    "Published year cannot be in the future.");
+            }
+
+            if (totalCopies <= 0)
+            {
+                throw new ArgumentException(
+                    "Total copies must be greater than 0.");
+            }
+
+            Title = title;
+            Author = author;
+            Isbn = isbn;
+            PublishedYear = publishedYear;
+            TotalCopies = totalCopies;
+
+            if (AvailableCopies > totalCopies)
+            {
+                AvailableCopies = totalCopies;
+            }
+        }
     }
 }
