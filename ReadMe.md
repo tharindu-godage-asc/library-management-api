@@ -184,9 +184,10 @@ dotnet ef database update
 
 ## Example API Requests
 
-<img width="1589" height="635" alt="image" src="https://github.com/user-attachments/assets/d21aff20-7c44-454b-8bb7-4473780f396e" />
+<img width="1705" height="900" alt="image" src="https://github.com/user-attachments/assets/1ea69492-5bd7-4422-a3b4-592c7815ea2c" />
 
-<img width="1611" height="500" alt="image" src="https://github.com/user-attachments/assets/d9dd4bce-2144-4f79-a7b5-b08e2592015e" />
+<img width="1593" height="380" alt="image" src="https://github.com/user-attachments/assets/e479b278-e3b7-40b3-9cf3-8f7f060355bb" />
+
 
 ### Create a book
 
