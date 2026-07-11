@@ -71,7 +71,7 @@ docker-compose.yml       PostgreSQL container definition
 
 ### Prerequisites
 
-- .NET 9 SDK
+- .NET 10 SDK
 - Docker Desktop
 - (Optional) `dotnet-ef` CLI tool: `dotnet tool install --global dotnet-ef`
 
@@ -152,6 +152,10 @@ dotnet ef database update
 ```
 
 ## Example API Requests
+
+<img width="1589" height="635" alt="image" src="https://github.com/user-attachments/assets/d21aff20-7c44-454b-8bb7-4473780f396e" />
+
+<img width="1611" height="500" alt="image" src="https://github.com/user-attachments/assets/d9dd4bce-2144-4f79-a7b5-b08e2592015e" />
 
 ### Create a book
 
