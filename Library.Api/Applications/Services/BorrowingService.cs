@@ -30,7 +30,7 @@ public class BorrowingService
     {
         var member =
             await _memberRepository.GetByIdAsync(memberId)
-            ?? throw new KeyNotFoundException("Member not found.");
+            ?? throw new NotFoundException("Member not found.");
 
         if (!member.IsActive)
         {
@@ -50,7 +50,7 @@ public class BorrowingService
 
         var book =
             await _bookRepository.GetByIdAsync(bookId)
-            ?? throw new KeyNotFoundException("Book not found.");
+            ?? throw new NotFoundException("Book not found.");
 
         // Uses your domain logic
         book.BorrowCopy();
@@ -72,12 +72,12 @@ public class BorrowingService
     {
         var borrowing =
             await _borrowingRepository.GetByIdAsync(borrowingId)
-            ?? throw new KeyNotFoundException(
+            ?? throw new NotFoundException(
                 "Borrowing record not found.");
 
         var book =
             await _bookRepository.GetByIdAsync(borrowing.BookId)
-            ?? throw new KeyNotFoundException(
+            ?? throw new NotFoundException(
                 "Book not found.");
 
         borrowing.MarkReturned();
