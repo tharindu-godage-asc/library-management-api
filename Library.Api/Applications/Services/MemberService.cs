@@ -44,7 +44,7 @@ public class MemberService
 
         if (existingMember is not null)
         {
-            throw new InvalidOperationException(
+            throw new ConflictException(
                 "Email already exists.");
         }
 
@@ -61,7 +61,7 @@ public class MemberService
 
         if (member is null)
         {
-            throw new KeyNotFoundException(
+            throw new NotFoundException(
                 "Member not found.");
         }
 
