@@ -5,3 +5,6 @@
 /.vs/Library.Api.slnx
 /Library.Api.Tests
 /.vs/ProjectEvaluation
+/Library.Api.Tests/obj/Debug/net10.0/Library.Api.Tests.AssemblyInfo.cs
+/Library.Api.Tests/obj/Debug/net10.0/Library.Api.Tests.AssemblyInfoInputs.cache
+/Library.Api.Tests/obj/Debug/net10.0/Library.Api.Tests.csproj.AssemblyReference.cache
