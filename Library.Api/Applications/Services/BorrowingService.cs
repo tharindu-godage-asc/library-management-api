@@ -30,11 +30,11 @@ public class BorrowingService
     {
         var member =
             await _memberRepository.GetByIdAsync(memberId)
-            ?? throw new KeyNotFoundException("Member not found.");
+            ?? throw new NotFoundException("Member not found.");
 
         if (!member.IsActive)
         {
-            throw new InvalidOperationException(
+            throw new BusinessRuleException(
                 "Member is inactive.");
         }
 
@@ -44,13 +44,13 @@ public class BorrowingService
 
         if (activeBorrowings >= 3)
         {
-            throw new InvalidOperationException(
+            throw new BusinessRuleException(
                 "Member borrowing limit exceeded.");
         }
 
         var book =
             await _bookRepository.GetByIdAsync(bookId)
-            ?? throw new KeyNotFoundException("Book not found.");
+            ?? throw new NotFoundException("Book not found.");
 
         // Uses your domain logic
         book.BorrowCopy();
@@ -63,7 +63,7 @@ public class BorrowingService
 
         _bookRepository.Update(book);
 
-        await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();   
 
         return borrowing;
     }
