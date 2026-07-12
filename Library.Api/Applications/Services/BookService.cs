@@ -43,7 +43,7 @@ public class BookService
 
         if (existingBook is not null)
         {
-            throw new InvalidOperationException(
+            throw new ConflictException(
                 "ISBN already exists.");
         }
 
@@ -60,7 +60,7 @@ public class BookService
 
         if (book is null)
         {
-            throw new KeyNotFoundException("Book not found.");
+            throw new NotFoundException("Book not found.");
         }
 
         _bookRepository.Delete(book);
