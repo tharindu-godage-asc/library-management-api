@@ -184,9 +184,10 @@ dotnet ef database update
 
 ## Example API Requests
 
-<img width="1589" height="635" alt="image" src="https://github.com/user-attachments/assets/d21aff20-7c44-454b-8bb7-4473780f396e" />
+<img width="1705" height="900" alt="image" src="https://github.com/user-attachments/assets/1ea69492-5bd7-4422-a3b4-592c7815ea2c" />
 
-<img width="1611" height="500" alt="image" src="https://github.com/user-attachments/assets/d9dd4bce-2144-4f79-a7b5-b08e2592015e" />
+<img width="1593" height="380" alt="image" src="https://github.com/user-attachments/assets/e479b278-e3b7-40b3-9cf3-8f7f060355bb" />
+
 
 ### Create a book
 
@@ -296,6 +297,32 @@ Validation errors include a per-field breakdown:
 | Duplicate ISBN or email | 409 |
 | Business rule violation | 400 / 409 |
 
+## Running Tests
+
+The solution includes an xUnit test project that validates the core domain logic and business rules.
+
+Run all tests from the solution root:
+
+```bash
+dotnet test
+```
+
+Or run only the test project:
+
+```bash
+dotnet test Library.Api.Tests
+```
+
+### Test Coverage
+
+The current test suite includes the following scenarios:
+
+#### Tests
+- A book cannot be borrowed when no copies are available.
+- An inactive member cannot borrow a book.
+- A member cannot borrow more than 3 active books.
+- Returning a book increases available copies.
+- A book cannot be returned twice.
 
 ## Assumptions
 
