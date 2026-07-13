@@ -1,8 +1,10 @@
-﻿using Library.Api.Applications.Services;
+﻿using Microsoft.AspNetCore.Mvc;
+using Library.Api.Applications.Services;
 using Library.Api.Common.Filters;
 using Library.Api.Contracts.Books;
 using Library.Api.Contracts.Mappings;
 using Library.Api.Domain.Entities;
+
 
 namespace Library.Api.Endpoints;
 
@@ -14,10 +16,28 @@ public static class BookEndpoints
             .WithTags("Books");
 
         // Get All Books
-        group.MapGet("/",
-            async (BookService service) =>
+        _ = group.MapGet("/",
+            async (
+                BookService service,
+                [FromQuery] int pageNumber = 1,
+                [FromQuery] int pageSize = 10) =>
             {
-                var books = await service.GetAllAsync();
+                if (pageNumber <= 0)
+                {
+                    return Results.BadRequest(
+                        "Page number must be greater than 0.");
+                }
+
+                if (pageSize <= 0)
+                {
+                    return Results.BadRequest(
+                        "Page size must be greater than 0.");
+                }
+
+                var books =
+                    await service.GetPagedAsync(
+                        pageNumber,
+                        pageSize);
 
                 return Results.Ok(
                     books.Select(x => x.ToResponse()));
@@ -77,5 +97,6 @@ public static class BookEndpoints
 
                 return Results.NoContent();
             });
+
     }
 }
