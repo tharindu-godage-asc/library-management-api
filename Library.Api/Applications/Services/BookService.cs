@@ -103,4 +103,14 @@ public class BookService
 
         await _unitOfWork.SaveChangesAsync();
     }
+
+    public async Task<IEnumerable<Book>> GetPagedAsync(
+    int pageNumber,
+    int pageSize)
+    {
+        return await _bookRepository
+            .GetPagedAsync(
+                pageNumber,
+                pageSize);
+    }
 }
