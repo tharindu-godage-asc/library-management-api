@@ -1,5 +1,6 @@
 ﻿using Library.Api.Application.Interfaces;
 using Library.Api.Applications.Services;
+using Library.Api.Common.Exceptions;
 using Library.Api.Domain.Entities;
 using Library.Api.Infrastructure.Repositories;
 using Moq;
@@ -62,7 +63,7 @@ public class BorrowingServiceTests
                 x.GetActiveBorrowingsCountAsync(1))
             .ReturnsAsync(0);
 
-        await Assert.ThrowsAsync<InvalidOperationException>(
+        await Assert.ThrowsAsync<BusinessRuleException>(
             () => _service.BorrowBookAsync(1, 1));
     }
 
@@ -82,7 +83,7 @@ public class BorrowingServiceTests
             .Setup(x => x.GetByIdAsync(1))
             .ReturnsAsync(member);
 
-        await Assert.ThrowsAsync<InvalidOperationException>(
+        await Assert.ThrowsAsync<BusinessRuleException>(
             () => _service.BorrowBookAsync(1, 1));
     }
 
@@ -116,7 +117,7 @@ public class BorrowingServiceTests
                 x.GetActiveBorrowingsCountAsync(1))
             .ReturnsAsync(3);
 
-        await Assert.ThrowsAsync<InvalidOperationException>(
+        await Assert.ThrowsAsync<BusinessRuleException>(
     () => _service.BorrowBookAsync(1, 1));
     }
 
