@@ -34,7 +34,7 @@ public class BorrowingService
 
         if (!member.IsActive)
         {
-            throw new InvalidOperationException(
+            throw new BusinessRuleException(
                 "Member is inactive.");
         }
 
@@ -44,7 +44,7 @@ public class BorrowingService
 
         if (activeBorrowings >= 3)
         {
-            throw new InvalidOperationException(
+            throw new BusinessRuleException(
                 "Member borrowing limit exceeded.");
         }
 
@@ -63,7 +63,7 @@ public class BorrowingService
 
         _bookRepository.Update(book);
 
-        await _unitOfWork.SaveChangesAsync();
+        await _unitOfWork.SaveChangesAsync();   
 
         return borrowing;
     }
