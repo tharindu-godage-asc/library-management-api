@@ -113,4 +113,22 @@ public class BookService
                 pageNumber,
                 pageSize);
     }
+
+    public async Task<IEnumerable<Book>> SearchAsync(
+        string? title,
+        string? author)
+    {
+        var books = await _bookRepository
+            .SearchAsync(
+                title,
+                author);
+
+        if (!books.Any())
+        {
+            throw new NotFoundException(
+                "No books found matching the search criteria.");
+        }
+
+        return books;
+    }
 }

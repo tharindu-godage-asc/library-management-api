@@ -19,8 +19,10 @@ A backend API for a small library to manage books, members, and the borrowing/re
 - [Error Response Format](#error-response-format)
 - [Running Tests](#running-tests)
 - [Assumptions](#assumptions)
-
-## Overview
+- [Bonus-features-implemented](#Bonus-features)
+   - [1. Pagination](#1-Pagination-for-Books)   
+   - [2. Search Books by title or author](#2-search)
+    ## Overview
 
 The API supports three core resources:
 
@@ -336,3 +338,113 @@ The following assumptions were made:
 - A member must be active to borrow books.
 - A borrowing record remains in the database after a book is returned.
 - Empty borrowing history for an existing member returns an empty collection rather than a 404 response.
+
+## Bonus Features Implemented
+
+The following optional enhancements were implemented on top of the core assessment requirements.
+
+### 1. Pagination for Books
+
+Pagination was added to the `GET /api/books` endpoint to improve scalability and reduce the amount of data returned in a single request.
+
+#### Endpoint
+
+```http
+GET /api/books?pageNumber=1&pageSize=10
+```
+
+#### Query Parameters
+
+| Parameter | Description | Default |
+|-----------|-------------|----------|
+| pageNumber | Page number to retrieve | 1 |
+| pageSize | Number of records per page | 10 |
+
+#### Example
+
+```http
+GET /api/books?pageNumber=2&pageSize=2
+```
+
+This returns the second page containing two books per page.
+
+#### Implementation Details
+
+Pagination was implemented using Entity Framework Core's:
+
+```csharp
+Skip((pageNumber - 1) * pageSize)
+Take(pageSize)
+```
+
+The implementation follows the existing architecture:
+
+```text
+Endpoint
+  ↓
+BookService
+  ↓
+IBookRepository
+  ↓
+BookRepository
+  ↓
+EF Core
+  ↓
+PostgreSQL
+```
+
+Benefits:
+
+- Improves performance for larger datasets.
+- Reduces unnecessary network traffic.
+- Prevents loading all records into memory at once.
+- Provides a more scalable API design.
+
+### Future Bonus Enhancements
+
+The following optional enhancements can be implemented in future iterations:
+
+- Search books by title.
+- Search books by author.
+- Filter books by availability.
+- Soft delete for books and members.
+- Audit fields (`CreatedAt`, `UpdatedAt`, `DeletedAt`).
+- Overdue borrowing detection.
+- Integration testing using Testcontainers for PostgreSQL.
+
+### 2. Search Books by Title or Author
+
+A search endpoint was added to allow filtering books by title and/or author.
+
+#### Endpoint
+
+```http
+GET /api/books/search
+```
+
+#### Query Parameters
+
+| Parameter | Description |
+|-----------|-------------|
+| title | Search by book title |
+| author | Search by author name |
+
+#### Examples
+
+```http
+GET /api/books/search?title=Clean
+```
+
+```http
+GET /api/books/search?author=Robert
+```
+
+```http
+GET /api/books/search?title=Clean&author=Robert
+```
+
+#### Benefits
+
+- Improves discoverability of books.
+- Reduces client-side filtering.
+- Supports partial matching on title and author names.
