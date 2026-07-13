@@ -15,4 +15,6 @@ public interface IBookRepository
     void Update(Book book);
 
     void Delete(Book book);
+
+    Task<IEnumerable<Book>> GetPagedAsync(int pageNumber, int pageSize);
 }
