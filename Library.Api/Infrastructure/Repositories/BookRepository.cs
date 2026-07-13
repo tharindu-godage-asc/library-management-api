@@ -56,4 +56,27 @@ public class BookRepository : IBookRepository
             .Take(pageSize)
             .ToListAsync();
     }
+
+    public async Task<IEnumerable<Book>> SearchAsync(
+    string? title,
+    string? author)
+    {
+        var query = _context.Books.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(title))
+        {
+            query = query.Where(x =>
+                x.Title.Contains(title));
+        }
+
+        if (!string.IsNullOrWhiteSpace(author))
+        {
+            query = query.Where(x =>
+                x.Author.Contains(author));
+        }
+
+        return await query
+            .OrderBy(x => x.Id)
+            .ToListAsync();
+    }
 }

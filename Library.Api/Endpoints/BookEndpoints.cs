@@ -15,7 +15,7 @@ public static class BookEndpoints
         var group = app.MapGroup("/api/books")
             .WithTags("Books");
 
-        // Get All Books
+        // Get All Books with Pagination
         _ = group.MapGet("/",
             async (
                 BookService service,
@@ -38,6 +38,22 @@ public static class BookEndpoints
                     await service.GetPagedAsync(
                         pageNumber,
                         pageSize);
+
+                return Results.Ok(
+                    books.Select(x => x.ToResponse()));
+            });
+
+        //Search By Author or Title
+        group.MapGet("/search",
+            async (
+                string? title,
+                string? author,
+                BookService service) =>
+            {
+                var books =
+                    await service.SearchAsync(
+                        title,
+                        author);
 
                 return Results.Ok(
                     books.Select(x => x.ToResponse()));
