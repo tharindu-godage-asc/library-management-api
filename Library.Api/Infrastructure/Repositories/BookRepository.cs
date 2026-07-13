@@ -45,4 +45,15 @@ public class BookRepository : IBookRepository
     {
         _context.Books.Remove(book);
     }
+
+    public async Task<IEnumerable<Book>> GetPagedAsync(
+        int pageNumber,
+        int pageSize)
+    {
+        return await _context.Books
+            .OrderBy(x => x.Id)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
 }
