@@ -1,4 +1,6 @@
-﻿namespace Library.Api.Domain.Entities
+﻿using Library.Api.Common.Exceptions;
+
+namespace Library.Api.Domain.Entities
 {
     public class Book
     {
@@ -30,14 +32,14 @@
         public void BorrowCopy()
         {
             if (AvailableCopies <= 0)
-                throw new InvalidOperationException("No available copies.");
+                throw new BusinessRuleException("No available copies.");
             AvailableCopies--;
         }
 
         public void ReturnCopy()
         {
             if (AvailableCopies >= TotalCopies)
-                throw new InvalidOperationException("All copies already accounted for.");
+                throw new BusinessRuleException("All copies already accounted for.");
             AvailableCopies++;
         }
 
