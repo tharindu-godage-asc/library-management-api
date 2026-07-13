@@ -19,6 +19,8 @@ A backend API for a small library to manage books, members, and the borrowing/re
 - [Error Response Format](#error-response-format)
 - [Running Tests](#running-tests)
 - [Assumptions](#assumptions)
+- [Bonus-features-implemented](#Bonus-features)
+   - [1. Pagination](#1-pagination)   
 
 ## Overview
 
@@ -336,3 +338,76 @@ The following assumptions were made:
 - A member must be active to borrow books.
 - A borrowing record remains in the database after a book is returned.
 - Empty borrowing history for an existing member returns an empty collection rather than a 404 response.
+
+## Bonus Features Implemented
+
+The following optional enhancements were implemented on top of the core assessment requirements.
+
+### 1. Pagination for Books
+
+Pagination was added to the `GET /api/books` endpoint to improve scalability and reduce the amount of data returned in a single request.
+
+#### Endpoint
+
+```http
+GET /api/books?pageNumber=1&pageSize=10
+```
+
+#### Query Parameters
+
+| Parameter | Description | Default |
+|-----------|-------------|----------|
+| pageNumber | Page number to retrieve | 1 |
+| pageSize | Number of records per page | 10 |
+
+#### Example
+
+```http
+GET /api/books?pageNumber=2&pageSize=2
+```
+
+This returns the second page containing two books per page.
+
+#### Implementation Details
+
+Pagination was implemented using Entity Framework Core's:
+
+```csharp
+Skip((pageNumber - 1) * pageSize)
+Take(pageSize)
+```
+
+The implementation follows the existing architecture:
+
+```text
+Endpoint
+  ↓
+BookService
+  ↓
+IBookRepository
+  ↓
+BookRepository
+  ↓
+EF Core
+  ↓
+PostgreSQL
+```
+
+Benefits:
+
+- Improves performance for larger datasets.
+- Reduces unnecessary network traffic.
+- Prevents loading all records into memory at once.
+- Provides a more scalable API design.
+
+### Future Bonus Enhancements
+
+The following optional enhancements can be implemented in future iterations:
+
+- Search books by title.
+- Search books by author.
+- Filter books by availability.
+- Soft delete for books and members.
+- Audit fields (`CreatedAt`, `UpdatedAt`, `DeletedAt`).
+- Overdue borrowing detection.
+- Integration testing using Testcontainers for PostgreSQL.
