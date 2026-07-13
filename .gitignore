@@ -4,6 +4,7 @@
 
 /.vs/Library.Api.slnx
 /.vs/Library.Api.slnx
+/.vs/Library.Api/CopilotIndices
 /.vs/ProjectEvaluation/library.api.metadata.v10.bin
 /.vs/ProjectEvaluation/library.api.projects.v10.bin
 /.vs/ProjectEvaluation/library.api.strings.v10.bin
@@ -25,11 +26,3 @@
 /Library.Api.Tests/Services/app.config
 /Library.Api.Tests/Library.Api.Tests.csproj.user
 /Library.Api.Tests/obj/Debug/net10.0/refint/Library.Api.Tests.dll
-/Library.Api.Tests/obj/Debug/net10.0/Library.Api.Tests.csproj.CoreCompileInputs.cache
-/Library.Api.Tests/obj/Debug/net10.0/Library.Api.Tests.csproj.FileListAbsolute.txt
-/.vs/Library.Api/CopilotIndices/18.7.1253.33689/CodeChunks.db
-/.vs/Library.Api/CopilotIndices/18.7.1253.33689/CodeChunks.db-shm
-/.vs/Library.Api/CopilotIndices/18.7.1253.33689/CodeChunks.db-wal
-/.vs/Library.Api/CopilotIndices/18.7.1253.33689/SemanticSymbols.db
-/.vs/Library.Api/CopilotIndices/18.7.1253.33689/SemanticSymbols.db-shm
-/.vs/Library.Api/CopilotIndices/18.7.1253.33689/SemanticSymbols.db-wal
