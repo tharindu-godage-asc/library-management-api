@@ -404,8 +404,6 @@ Benefits:
 
 The following optional enhancements can be implemented in future iterations:
 
-- Search books by title.
-- Search books by author.
 - Filter books by availability.
 - Soft delete for books and members.
 - Audit fields (`CreatedAt`, `UpdatedAt`, `DeletedAt`).
