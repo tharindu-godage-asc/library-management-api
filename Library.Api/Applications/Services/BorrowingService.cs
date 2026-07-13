@@ -72,12 +72,12 @@ public class BorrowingService
     {
         var borrowing =
             await _borrowingRepository.GetByIdAsync(borrowingId)
-            ?? throw new KeyNotFoundException(
+            ?? throw new NotFoundException(
                 "Borrowing record not found.");
 
         var book =
             await _bookRepository.GetByIdAsync(borrowing.BookId)
-            ?? throw new KeyNotFoundException(
+            ?? throw new NotFoundException(
                 "Book not found.");
 
         borrowing.MarkReturned();
