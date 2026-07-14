@@ -17,4 +17,6 @@ public interface IBookRepository
     void Delete(Book book);
 
     Task<IEnumerable<Book>> GetPagedAsync(int pageNumber, int pageSize);
+
+    Task<IEnumerable<Book>> SearchAsync(string?title, string? author);
 }
