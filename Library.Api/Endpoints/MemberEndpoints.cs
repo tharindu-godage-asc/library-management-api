@@ -1,4 +1,5 @@
-﻿using Library.Api.Applications.Services;
+﻿using Library.Api.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Library.Api.Common.Filters;
 using Library.Api.Contracts.Mappings;
 using Library.Api.Contracts.Members;
@@ -15,7 +16,7 @@ public static class MemberEndpoints
 
         // Get All Members
         group.MapGet("/",
-            async (MemberService service) =>
+            async ([FromServices] IMemberService service) =>
             {
                 var members =
                     await service.GetAllAsync();
@@ -28,7 +29,7 @@ public static class MemberEndpoints
         group.MapGet("/{id:int}",
             async (
                 int id,
-                MemberService service) =>
+                [FromServices] IMemberService service) =>
             {
                 var member =
                     await service.GetByIdAsync(id);
@@ -41,7 +42,7 @@ public static class MemberEndpoints
         group.MapPost("/",
             async (
                 CreateMemberRequest request,
-                MemberService service) =>
+                [FromServices] IMemberService service) =>
             {
                 var member = new Member(
                     request.FullName,
@@ -61,7 +62,7 @@ public static class MemberEndpoints
             async (
                 int id,
                 UpdateMemberRequest request,
-                MemberService service) =>
+                [FromServices] IMemberService service) =>
             {
                 await service.UpdateAsync(
                     id,
@@ -75,7 +76,7 @@ public static class MemberEndpoints
         group.MapDelete("/{id:int}",
             async (
                 int id,
-                MemberService service) =>
+                [FromServices] IMemberService service) =>
             {
                 await service.DeleteAsync(id);
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Library.Api.Application.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Library.Api.Applications.Services;
 using Library.Api.Common.Filters;
 using Library.Api.Contracts.Books;
@@ -18,7 +19,7 @@ public static class BookEndpoints
         // Get All Books with Pagination
         _ = group.MapGet("/",
             async (
-                BookService service,
+                [FromServices] IBookService service,
                 [FromQuery] int pageNumber = 1,
                 [FromQuery] int pageSize = 10) =>
             {
@@ -48,7 +49,7 @@ public static class BookEndpoints
             async (
                 string? title,
                 string? author,
-                BookService service) =>
+                [FromServices] IBookService service) =>
             {
                 var books =
                     await service.SearchAsync(
@@ -61,7 +62,7 @@ public static class BookEndpoints
 
         // Get Book By Id
         group.MapGet("/{id:int}",
-            async (int id, BookService service) =>
+            async (int id, [FromServices] IBookService service) =>
             {
                 var book = await service.GetByIdAsync(id);
 
@@ -73,7 +74,7 @@ public static class BookEndpoints
         group.MapPost("/",
             async (
                 CreateBookRequest request,
-                BookService service) =>
+                [FromServices] IBookService service) =>
             {
                 var book = new Book(
                     request.Title,
@@ -95,7 +96,7 @@ public static class BookEndpoints
             async (
                 int id,
                 UpdateBookRequest request,
-                BookService service) =>
+                [FromServices] IBookService service) =>
             {
                 await service.UpdateAsync(id, request);
 
@@ -107,7 +108,7 @@ public static class BookEndpoints
         group.MapDelete("/{id:int}",
             async (
                 int id,
-                BookService service) =>
+                [FromServices] IBookService service) =>
             {
                 await service.DeleteAsync(id);
 
