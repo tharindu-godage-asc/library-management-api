@@ -1,7 +1,8 @@
-﻿using Library.Api.Applications.Services;
+﻿using Library.Api.Application.Interfaces;
 using Library.Api.Common.Filters;
 using Library.Api.Contracts.Borrowings;
 using Library.Api.Contracts.Mappings;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Library.Api.Endpoints;
 
@@ -17,7 +18,7 @@ public static class BorrowingEndpoints
         group.MapPost("/",
             async (
                 CreateBorrowingRequest request,
-                BorrowingService service) =>
+                [FromServices] IBorrowingService service) =>
             {
                 var borrowing =
                     await service.BorrowBookAsync(
@@ -32,7 +33,7 @@ public static class BorrowingEndpoints
 
         // Get All Borrowings
         group.MapGet("/",
-            async (BorrowingService service) =>
+            async ([FromServices] IBorrowingService service) =>
             {
                 var borrowings =
                     await service.GetHistoryAsync();
@@ -46,7 +47,7 @@ public static class BorrowingEndpoints
         group.MapPost("/{id:int}/return",
             async (
                 int id,
-                BorrowingService service) =>
+                [FromServices] IBorrowingService service) =>
             {
                 await service.ReturnBookAsync(id);
 
@@ -58,7 +59,7 @@ public static class BorrowingEndpoints
             "/api/members/{memberId:int}/borrowings",
             async (
                 int memberId,
-                BorrowingService service) =>
+                [FromServices] IBorrowingService service) =>
             {
                 var borrowings =
                     await service
