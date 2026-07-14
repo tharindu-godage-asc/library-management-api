@@ -5,7 +5,7 @@ using Library.Api.Domain.Entities;
 
 namespace Library.Api.Applications.Services;
 
-public class BookService
+public class BookService : IBookService
 {
     private readonly IBookRepository _bookRepository;
     private readonly IUnitOfWork _unitOfWork;

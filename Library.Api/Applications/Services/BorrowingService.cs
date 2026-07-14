@@ -5,7 +5,7 @@ using Library.Api.Infrastructure.Repositories;
 
 namespace Library.Api.Applications.Services;
 
-public class BorrowingService
+public class BorrowingService : IBorrowingService
 {
     private readonly IBookRepository _bookRepository;
     private readonly IMemberRepository _memberRepository;

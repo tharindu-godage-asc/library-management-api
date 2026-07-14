@@ -5,11 +5,33 @@ using Library.Api.Domain.Entities;
 
 namespace Library.Api.Applications.Services;
 
-public class MemberService
+public class MemberService : IMemberService
 {
+    /*
+ * Dependencies
+ * ------------
+ * These are objects that MemberService needs to perform its work.
+ *
+ * IMemberRepository:
+ * - Handles database operations related to Members.
+ * - Example: Get member, Add member, Delete member.
+ *
+ * IUnitOfWork:
+ * - Controls saving changes to the database.
+ * - Ensures multiple database operations can be committed together.
+ */
     private readonly IMemberRepository _memberRepository;
     private readonly IUnitOfWork _unitOfWork;
 
+
+        /*
+         * Constructor Dependency Injection
+         * --------------------------------
+         * ASP.NET Core automatically creates these dependencies and passes
+         * them into the constructor.
+         *
+         * This avoids creating repositories manually inside this class.
+         */
     public MemberService(
         IMemberRepository memberRepository,
         IUnitOfWork unitOfWork)
